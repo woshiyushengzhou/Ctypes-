@@ -1,0 +1,79 @@
+ipmitool -I lanplus -H 192.168.124.182 -U root -P root sel list
+
+# 1. 获取到服务器的网络配置信息
+echo -e "\n\n=======Networking Configurations:"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD lan print
+
+
+# 2.获取到服务器的温度信息
+echo -e "\n\n=======Ambient Temprature:"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD sdr get "Ambient Temp"
+
+
+# 3.获取到服务器的功率信息
+echo -e "\n\n=======System Level:"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD sdr get "System Level"
+
+
+# 4.获取到服务器的序列号信息
+echo -e "\n\n=======Serial Number(Fru):"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD fru
+
+
+# 5.获取到服务器的MAC
+echo -e "\n\n=======Mac Address(only Dell):"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD delloem mac
+
+
+# 6.获取到服务器的资产号信息
+echo -e "\n\n=======Serial Number(Fru):"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD sdr get "System Level"
+
+
+# 7.获取到服务器的管理卡的时间
+echo -e "\n\n=======Date and Time:"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD sel time get
+
+
+# 8.查看管理卡配置模式
+echo -e "\n\n=======Lan set Mode:"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD delloem lan get
+
+
+# 9.查看SOL波特率
+echo -e "\n\n=======Volatile Bit Rate (kbps):"
+ipmitool -I lan -H $HOST -U $USER -P $PASSWD sol info 1
+
+MAC
+ipmitool -I lanplus -H 192.168.124.182 -U root -P root lan print | grep "MAC Address"
+
+
+fru
+ipmitool -I lanplus -H 192.168.124.115 -U ADMIN -P ADMIN fru print
+
+#set threshold
+ipmitool -I lanplus -H 192.168.124.115 -U ADMIN -P ADMIN sensor thresh BPB_FAN01 lnc 1100
+
+#read power
+ipmitool -I lanplus -H 192.168.124.115 -U ADMIN -P ADMIN dcmi power reading 15_min
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
